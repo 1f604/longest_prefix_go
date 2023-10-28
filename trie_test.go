@@ -15,8 +15,11 @@ func Test_Trie(t *testing.T) {
 	result := trie.LongestMatchingPrefix("hello world!")
 	Assert_result_equals_bytes(t, []byte(result), nil, "hello", 1)
 
-	result = trie.LongestMatchingPrefix("hell world!")
-	Assert_result_equals_bytes(t, []byte(result), nil, "hell", 1)
+	result = trie.LongestMatchingPrefix("hello/worl !")
+	Assert_result_equals_bytes(t, []byte(result), nil, "hello", 1)
+
+	result = trie.LongestMatchingPrefix("hell o!")
+	Assert_result_equals_bytes(t, []byte(result), nil, "", 1)
 
 	result = trie.LongestMatchingPrefix("hello/worldsdgasfg!")
 	Assert_result_equals_bytes(t, []byte(result), nil, "hello/world", 1)

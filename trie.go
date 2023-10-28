@@ -7,11 +7,12 @@ type Trie struct {
 }
 
 type TrieNode struct {
-	children map[rune]*TrieNode // runes are stored in the links
+	children   map[rune]*TrieNode // runes are stored in the links
+	isTerminal bool
 }
 
 func NewTrieNode() *TrieNode {
-	return &TrieNode{children: make(map[rune]*TrieNode)}
+	return &TrieNode{children: make(map[rune]*TrieNode), isTerminal: false}
 }
 
 func NewTrie() *Trie {
@@ -26,17 +27,22 @@ func (t *Trie) Insert(s string) {
 		}
 		node = node.children[r]
 	}
+	node.isTerminal = true
 }
 
 func (t *Trie) LongestMatchingPrefix(s string) string {
 	node := t.root
 	sb := strings.Builder{}
+	result := ""
 	for _, r := range s {
 		if _, ok := node.children[r]; !ok { // if value not in map
-			return sb.String()
+			return result
 		}
 		sb.WriteRune(r)
 		node = node.children[r]
+		if node.isTerminal {
+			result = sb.String()
+		}
 	}
-	return sb.String()
+	return result
 }

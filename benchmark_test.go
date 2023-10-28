@@ -56,7 +56,7 @@ var search_strings []string
 var trie *Trie
 
 func init() {
-	prefixes, search_strings = setup(20, 1000)
+	prefixes, search_strings = setup(20, 100000)
 	fmt.Println("num prefixes", len(prefixes))
 	trie = NewTrie()
 	for _, prefix := range prefixes {
